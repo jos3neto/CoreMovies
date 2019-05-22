@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8286C905229397E1008B1AB5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8286C904229397E1008B1AB5 /* TableViewController.swift */; };
+		8286C9072294D9F9008B1AB5 /* AddMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8286C9062294D9F9008B1AB5 /* AddMovieViewController.swift */; };
 		82F1AAD72293841F00962096 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F1AAD62293841F00962096 /* AppDelegate.swift */; };
 		82F1AADC2293841F00962096 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82F1AADA2293841F00962096 /* Main.storyboard */; };
 		82F1AADF2293841F00962096 /* CoreMovies.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82F1AADD2293841F00962096 /* CoreMovies.xcdatamodeld */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		8286C904229397E1008B1AB5 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		8286C9062294D9F9008B1AB5 /* AddMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieViewController.swift; sourceTree = "<group>"; };
 		82F1AAD32293841F00962096 /* CoreMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82F1AAD62293841F00962096 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82F1AADB2293841F00962096 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				82F1AAD62293841F00962096 /* AppDelegate.swift */,
 				8286C904229397E1008B1AB5 /* TableViewController.swift */,
+				8286C9062294D9F9008B1AB5 /* AddMovieViewController.swift */,
 				82F1AADA2293841F00962096 /* Main.storyboard */,
 				82F1AAE02293842200962096 /* Assets.xcassets */,
 				82F1AAE22293842200962096 /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 				82F1AADF2293841F00962096 /* CoreMovies.xcdatamodeld in Sources */,
 				8286C905229397E1008B1AB5 /* TableViewController.swift in Sources */,
 				82F1AAD72293841F00962096 /* AppDelegate.swift in Sources */,
+				8286C9072294D9F9008B1AB5 /* AddMovieViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +293,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XS84DW642G;
 				INFOPLIST_FILE = CoreMovies/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -296,7 +301,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.appcat.CoreMovies;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -307,6 +312,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XS84DW642G;
 				INFOPLIST_FILE = CoreMovies/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -314,7 +320,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.appcat.CoreMovies;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
