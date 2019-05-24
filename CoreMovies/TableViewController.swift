@@ -16,13 +16,7 @@ class TableViewController: UITableViewController
 	{
         super.viewDidLoad()
 		title = "Top 10 All-time Movies"
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
-
-	@IBAction func addMovie(_ sender: UIBarButtonItem)
-	{
-		
-	}
 	
 	// MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int
@@ -45,7 +39,8 @@ class TableViewController: UITableViewController
     // MARK: - Navigation
 	@IBAction func unwindFromAddMovieVC(segue: UIStoryboardSegue)
 	{
-		return
+		self.movies.append(contentsOf: (segue.source as! AddMovieViewController).movies)
+		tableView.reloadData()
 	}
 
 }

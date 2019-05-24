@@ -58,10 +58,10 @@
 		82F1AAD52293841F00962096 /* CoreMovies */ = {
 			isa = PBXGroup;
 			children = (
+				82F1AADA2293841F00962096 /* Main.storyboard */,
 				82F1AAD62293841F00962096 /* AppDelegate.swift */,
 				8286C904229397E1008B1AB5 /* TableViewController.swift */,
 				8286C9062294D9F9008B1AB5 /* AddMovieViewController.swift */,
-				82F1AADA2293841F00962096 /* Main.storyboard */,
 				82F1AAE02293842200962096 /* Assets.xcassets */,
 				82F1AAE22293842200962096 /* LaunchScreen.storyboard */,
 				82F1AAE52293842200962096 /* Info.plist */,

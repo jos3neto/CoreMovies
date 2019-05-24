@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pvs-Xm-Pwl">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="pvs-Xm-Pwl">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pvs-Xm-Pwl" id="nyh-Aq-MhV">
@@ -33,7 +33,14 @@
                             <outlet property="delegate" destination="DWA-96-h2D" id="wWq-TP-kNn"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="TE2-nA-Wqa"/>
+                    <navigationItem key="navigationItem" id="TE2-nA-Wqa">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FXI-kW-6TH">
+                            <connections>
+                                <action selector="addMovie:" destination="DWA-96-h2D" id="XCE-da-eAM"/>
+                                <segue destination="2hb-P1-5h2" kind="presentation" id="Qbh-0x-AoN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iLX-mD-ew2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -47,34 +54,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fnG-Xk-kTL">
-                                <rect key="frame" x="0.0" y="28" width="320" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter movie name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fnG-Xk-kTL">
+                                <rect key="frame" x="8" y="50" width="304" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="Zks-uM-Mix" kind="unwind" unwindAction="unwindFromAddMovieVCWithSegue:" id="OES-x4-TTv"/>
-                                </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uTh-9I-hzb">
+                                <rect key="frame" x="95" y="100" width="130" height="30"/>
+                                <state key="normal" title="Back to Table View"/>
+                                <connections>
+                                    <segue destination="Zks-uM-Mix" kind="unwind" unwindAction="unwindFromAddMovieVCWithSegue:" id="3xg-dR-vcX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fnG-Xk-kTL" firstAttribute="top" secondItem="rge-ea-lBS" secondAttribute="top" constant="8" id="adt-9z-lt5"/>
-                            <constraint firstItem="fnG-Xk-kTL" firstAttribute="leading" secondItem="rge-ea-lBS" secondAttribute="leading" id="kCN-dw-9Ii"/>
-                            <constraint firstItem="rge-ea-lBS" firstAttribute="trailing" secondItem="fnG-Xk-kTL" secondAttribute="trailing" id="yai-Xf-4AY"/>
+                            <constraint firstItem="uTh-9I-hzb" firstAttribute="top" secondItem="fnG-Xk-kTL" secondAttribute="bottom" constant="20" id="UmQ-fD-y4c"/>
+                            <constraint firstItem="uTh-9I-hzb" firstAttribute="centerX" secondItem="l5C-Ma-PMZ" secondAttribute="centerX" id="Wqe-Bi-c2k"/>
+                            <constraint firstItem="fnG-Xk-kTL" firstAttribute="top" secondItem="rge-ea-lBS" secondAttribute="top" constant="30" id="adt-9z-lt5"/>
+                            <constraint firstItem="fnG-Xk-kTL" firstAttribute="leading" secondItem="rge-ea-lBS" secondAttribute="leading" constant="8" id="kCN-dw-9Ii"/>
+                            <constraint firstItem="rge-ea-lBS" firstAttribute="trailing" secondItem="fnG-Xk-kTL" secondAttribute="trailing" constant="8" id="yai-Xf-4AY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rge-ea-lBS"/>
                     </view>
+                    <connections>
+                        <outlet property="button" destination="uTh-9I-hzb" id="GuB-Kq-tgh"/>
+                        <outlet property="textField" destination="fnG-Xk-kTL" id="Psg-i9-KNj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3OW-fF-nWm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Zks-uM-Mix" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3045" y="-706.69014084507046"/>
+            <point key="canvasLocation" x="2584" y="-707"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZU6-Wd-Fho">
