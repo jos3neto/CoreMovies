@@ -6,10 +6,11 @@
 //  Copyright © 2019 appcat.com. All rights reserved.
 //
 import UIKit
+import CoreData
 
 class AddMovieViewController: UIViewController, UITextFieldDelegate
 {
-	var movies: [String]!
+	var movies: [NSManagedObject] = []
 	@IBOutlet weak var textField: UITextField!
 	@IBOutlet weak var button: UIButton!
 	
@@ -33,13 +34,35 @@ class AddMovieViewController: UIViewController, UITextFieldDelegate
 			textField.resignFirstResponder()
 			return false
 		}
-		if textField.text != ""
+		if text != ""
 		{
 			let trimmedText = text.trimmingCharacters(in: .whitespaces)
-			movies.append(trimmedText)
+			self.save(trimmedText)
 			textField.text = ""
 		}
 		textField.resignFirstResponder()
 		return true
+	}
+	
+	func save(_ name: String)
+	{
+		guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else
+		{
+				return
+		}
+		let context = appDelegate.persistentContainer.viewContext
+		let entity = NSEntityDescription.entity(forEntityName: "Movie", in: context)!
+		let movie = NSManagedObject(entity: entity,
+									 insertInto: context)
+		movie.setValue(name, forKeyPath: "name")
+		
+		do
+		{
+			try context.save()
+			movies.append(movie)
+		} catch
+		{
+			print("Save error: \(error)")
+		}
 	}
 }

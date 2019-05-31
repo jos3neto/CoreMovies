@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class TableViewController: UITableViewController
 {
-	var movies: [String] = []
+	var movies: [NSManagedObject] = []
 	
     override func viewDidLoad()
 	{
@@ -32,14 +33,16 @@ class TableViewController: UITableViewController
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
 	{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-		cell.textLabel?.text = movies[indexPath.row]
+		let movie = movies[indexPath.row]
+		cell.textLabel?.text = movie.value(forKey: "name") as? String
         return cell
     }
 
     // MARK: - Navigation
 	@IBAction func unwindFromAddMovieVC(segue: UIStoryboardSegue)
 	{
-		self.movies.append(contentsOf: (segue.source as! AddMovieViewController).movies)
+		let addMovieVC = segue.source as! AddMovieViewController
+		self.movies.append(contentsOf: addMovieVC.movies)
 		tableView.reloadData()
 	}
 
