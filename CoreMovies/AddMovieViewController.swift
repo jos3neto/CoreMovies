@@ -34,9 +34,9 @@ class AddMovieViewController: UIViewController, UITextFieldDelegate
 			textField.resignFirstResponder()
 			return false
 		}
-		if text != ""
+		let trimmedText = text.trimmingCharacters(in: .whitespaces)
+		if trimmedText != ""
 		{
-			let trimmedText = text.trimmingCharacters(in: .whitespaces)
 			self.save(trimmedText)
 			textField.text = ""
 		}
@@ -46,20 +46,20 @@ class AddMovieViewController: UIViewController, UITextFieldDelegate
 	
 	func save(_ name: String)
 	{
-		guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else
+		/*guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else
 		{
-				return
+			return
 		}
 		let context = appDelegate.persistentContainer.viewContext
 		let entity = NSEntityDescription.entity(forEntityName: "Movie", in: context)!
-		let movie = NSManagedObject(entity: entity,
-									 insertInto: context)
-		movie.setValue(name, forKeyPath: "name")
+		let movie = NSManagedObject(entity: entity, insertInto: context)*/
+		let coreDataStack = CoreDataStack()
+		coreDataStack.movie.setValue(name, forKeyPath: "name")
 		
 		do
 		{
-			try context.save()
-			movies.append(movie)
+			try coreDataStack.context.save()
+			movies.append(coreDataStack.movie)
 		} catch
 		{
 			print("Save error: \(error)")
