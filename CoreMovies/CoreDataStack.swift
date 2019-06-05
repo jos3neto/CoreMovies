@@ -22,6 +22,7 @@ struct CoreDataStack
 		context = appDelegate.persistentContainer.viewContext
 		entity = NSEntityDescription.entity(forEntityName: "Movie", in: context)!
 		movie = NSManagedObject(entity: entity, insertInto: context)
-		fetchRequest = NSFetchRequest(entityName: "Movie")
+		fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Movie")
+		fetchRequest.includesPendingChanges = false
 	}
 }

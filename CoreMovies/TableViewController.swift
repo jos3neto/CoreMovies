@@ -17,16 +17,9 @@ class TableViewController: UITableViewController
 	{
         super.viewDidLoad()
 		title = "Top 10 All-time Movies"
-		//print("movies array: \(movies.count)")
     }
 	
 	override func viewWillAppear(_ animated: Bool)
-	{
-		super.viewWillAppear(animated)
-		print("movies array: \(movies.count)")
-	}
-	
-	/*override func viewWillAppear(_ animated: Bool)
 	{
 		super.viewWillAppear(animated)
 		let coreDataStack = CoreDataStack()
@@ -38,7 +31,7 @@ class TableViewController: UITableViewController
 		{
 			print("Fetch error: \(error)")
 		}
-	}*/
+	}
 	
 	// MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int
