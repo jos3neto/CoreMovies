@@ -13,16 +13,21 @@ struct CoreDataStack
 {
 	let context: NSManagedObjectContext
 	let entity: NSEntityDescription
-	let movie: NSManagedObject
 	let fetchRequest: NSFetchRequest<NSManagedObject>
+	let fetchController: NSFetchedResultsController<NSManagedObject>
 	
 	init()
 	{
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		context = appDelegate.persistentContainer.viewContext
 		entity = NSEntityDescription.entity(forEntityName: "Movie", in: context)!
-		movie = NSManagedObject(entity: entity, insertInto: context)
-		fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Movie")
-		fetchRequest.includesPendingChanges = false
+		fetchRequest = NSFetchRequest(entityName: "Movie")
+		fetchRequest.sortDescriptors = []
+		fetchController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+		
+		//fetchRequest.includesPendingChanges = false
+		//fetchRequest.returnsObjectsAsFaults = false
+		//let predicate = NSPredicate(format: "name != nil")
+		//fetchRequest.predicate = predicate
 	}
 }

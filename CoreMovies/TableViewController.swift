@@ -17,6 +17,9 @@ class TableViewController: UITableViewController
 	{
         super.viewDidLoad()
 		title = "Top 10 All-time Movies"
+		
+		/*let notificationCenter = NotificationCenter.default
+		notificationCenter.addObserver(self, selector: #selector(contextChanged), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: coreDataStack.context)*/
     }
 	
 	override func viewWillAppear(_ animated: Bool)
@@ -25,7 +28,9 @@ class TableViewController: UITableViewController
 		let coreDataStack = CoreDataStack()
 		do
 		{
-			movies = try coreDataStack.context.fetch(coreDataStack.fetchRequest)
+			//movies = try coreDataStack.context.fetch(coreDataStack.fetchRequest)
+			try coreDataStack.fetchController.performFetch()
+			movies = coreDataStack.fetchController.fetchedObjects ?? []
 			print("movies array: \(movies.count)")
 		} catch
 		{
@@ -58,6 +63,12 @@ class TableViewController: UITableViewController
 		let addMovieVC = segue.source as! AddMovieViewController
 		self.movies.append(contentsOf: addMovieVC.movies)
 		tableView.reloadData()
+	}
+	
+	// MARK: - Notification center selector
+	@objc func contextChanged()
+	{
+		print("context just changed.")
 	}
 
 }

@@ -17,7 +17,6 @@ class AddMovieViewController: UIViewController, UITextFieldDelegate
     override func viewDidLoad()
 	{
         super.viewDidLoad()
-		movies = []
 		textField.delegate = self
 		textField.layer.borderWidth = 1.1
 		textField.layer.borderColor = UIColor.blue.cgColor
@@ -46,20 +45,14 @@ class AddMovieViewController: UIViewController, UITextFieldDelegate
 	
 	func save(_ name: String)
 	{
-		/*guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else
-		{
-			return
-		}
-		let context = appDelegate.persistentContainer.viewContext
-		let entity = NSEntityDescription.entity(forEntityName: "Movie", in: context)!
-		let movie = NSManagedObject(entity: entity, insertInto: context)*/
 		let coreDataStack = CoreDataStack()
-		coreDataStack.movie.setValue(name, forKeyPath: "name")
+		let movie = NSManagedObject(entity: coreDataStack.entity, insertInto: coreDataStack.context)
+		movie.setValue(name, forKeyPath: "name")
 		
 		do
 		{
 			try coreDataStack.context.save()
-			movies.append(coreDataStack.movie)
+			movies.append(movie)
 		} catch
 		{
 			print("Save error: \(error)")
