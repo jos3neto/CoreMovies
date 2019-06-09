@@ -12,6 +12,7 @@ import CoreData
 class TableViewController: UITableViewController
 {
 	var movies: [NSManagedObject] = []
+	let coreDataStack = CoreDataStack()
 	
     override func viewDidLoad()
 	{
@@ -25,12 +26,11 @@ class TableViewController: UITableViewController
 	override func viewWillAppear(_ animated: Bool)
 	{
 		super.viewWillAppear(animated)
-		let coreDataStack = CoreDataStack()
 		do
 		{
-			//movies = try coreDataStack.context.fetch(coreDataStack.fetchRequest)
-			try coreDataStack.fetchController.performFetch()
-			movies = coreDataStack.fetchController.fetchedObjects ?? []
+			movies = try coreDataStack.context.fetch(coreDataStack.fetchRequest)
+			//try coreDataStack.fetchController.performFetch()
+			//movies = coreDataStack.fetchController.fetchedObjects ?? []
 			print("movies array: \(movies.count)")
 		} catch
 		{
@@ -39,7 +39,7 @@ class TableViewController: UITableViewController
 	}
 	
 	// MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int
+	override func numberOfSections(in tableView: UITableView) -> Int
 	{
         return 1
     }
@@ -56,6 +56,19 @@ class TableViewController: UITableViewController
 		cell.textLabel?.text = movie.value(forKey: "name") as? String
         return cell
     }
+	
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
+	{
+		if editingStyle == .delete
+		{
+			coreDataStack.context.delete(movies[indexPath.row])
+			do { try coreDataStack.context.save() }
+			catch { print("Save error: \(error)") }
+			
+			movies.remove(at: indexPath.row)
+			tableView.deleteRows(at: [indexPath], with: .automatic)
+		}
+	}
 
     // MARK: - Navigation
 	@IBAction func unwindFromAddMovieVC(segue: UIStoryboardSegue)
