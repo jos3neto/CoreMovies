@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class TableViewController: UITableViewController
+class TableViewController: UITableViewController, NSFetchedResultsControllerDelegate
 {
 	var movies: [NSManagedObject] = []
 	let coreDataStack = CoreDataStack()
@@ -18,25 +18,21 @@ class TableViewController: UITableViewController
 	{
         super.viewDidLoad()
 		title = "Top 10 All-time Movies"
+		coreDataStack.fetchController.delegate = self
 		
-		/*let notificationCenter = NotificationCenter.default
-		notificationCenter.addObserver(self, selector: #selector(contextChanged), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: coreDataStack.context)*/
-    }
-	
-	override func viewWillAppear(_ animated: Bool)
-	{
-		super.viewWillAppear(animated)
 		do
 		{
-			movies = try coreDataStack.context.fetch(coreDataStack.fetchRequest)
-			//try coreDataStack.fetchController.performFetch()
-			//movies = coreDataStack.fetchController.fetchedObjects ?? []
-			print("movies array: \(movies.count)")
+			//movies = try coreDataStack.context.fetch(coreDataStack.fetchRequest)
+			try coreDataStack.fetchController.performFetch()
+			movies = coreDataStack.fetchController.fetchedObjects ?? []
 		} catch
 		{
 			print("Fetch error: \(error)")
 		}
-	}
+		
+		/*let notificationCenter = NotificationCenter.default
+		notificationCenter.addObserver(self, selector: #selector(contextChanged), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: coreDataStack.context)*/
+    }
 	
 	// MARK: - Table view data source
 	override func numberOfSections(in tableView: UITableView) -> Int
@@ -61,21 +57,54 @@ class TableViewController: UITableViewController
 	{
 		if editingStyle == .delete
 		{
-			coreDataStack.context.delete(movies[indexPath.row])
-			do { try coreDataStack.context.save() }
-			catch { print("Save error: \(error)") }
-			
+			let movie = movies[indexPath.row]
 			movies.remove(at: indexPath.row)
-			tableView.deleteRows(at: [indexPath], with: .automatic)
+			coreDataStack.context.delete(movie)
+			do
+			{
+				try coreDataStack.context.save()
+			} catch
+			{
+				print("Save error: \(error)")
+			}
 		}
 	}
 
     // MARK: - Navigation
-	@IBAction func unwindFromAddMovieVC(segue: UIStoryboardSegue)
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		let addMovieVC = segue.source as! AddMovieViewController
-		self.movies.append(contentsOf: addMovieVC.movies)
+		let addMovieVC = segue.destination as! AddMovieViewController
+		addMovieVC.coreDataStack = coreDataStack
+		addMovieVC.tableViewController = self
+	}
+	
+	// MARK: - FetchedResultsController Delegate Methods
+	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
+	{
+		tableView.beginUpdates()
+		//print("will change controller.fetchedObjects")
+	}
+	
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
+	{
+		switch type
+		{
+			case .insert:
+				tableView.insertRows(at: [newIndexPath!], with: .automatic)
+			case .delete:
+				tableView.deleteRows(at: [indexPath!], with: .automatic)
+			case .update:
+				tableView.reloadRows(at: [newIndexPath!], with: .automatic)
+			case .move:
+				tableView.moveRow(at: indexPath!, to: newIndexPath!)
+		}
+	}
+	
+	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
+	{
 		tableView.reloadData()
+		tableView.endUpdates()
+		//print("did change controller.fetchedObjects")
 	}
 	
 	// MARK: - Notification center selector

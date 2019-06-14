@@ -9,14 +9,14 @@
 import UIKit
 import CoreData
 
-struct CoreDataStack
+class CoreDataStack: NSObject
 {
 	let context: NSManagedObjectContext
 	let entity: NSEntityDescription
 	let fetchRequest: NSFetchRequest<NSManagedObject>
 	let fetchController: NSFetchedResultsController<NSManagedObject>
 	
-	init()
+	override init()
 	{
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		context = appDelegate.persistentContainer.viewContext
@@ -27,7 +27,6 @@ struct CoreDataStack
 		
 		//fetchRequest.includesPendingChanges = false
 		//fetchRequest.returnsObjectsAsFaults = false
-		//let predicate = NSPredicate(format: "name != nil")
-		//fetchRequest.predicate = predicate
+		//fetchRequest.predicate = NSPredicate(format: "name != nil")
 	}
 }

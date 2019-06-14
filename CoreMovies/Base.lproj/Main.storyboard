@@ -64,7 +64,7 @@
                                 <rect key="frame" x="95" y="100" width="130" height="30"/>
                                 <state key="normal" title="Back to Table View"/>
                                 <connections>
-                                    <segue destination="Zks-uM-Mix" kind="unwind" unwindAction="unwindFromAddMovieVCWithSegue:" id="3xg-dR-vcX"/>
+                                    <action selector="backToTableView:" destination="2hb-P1-5h2" eventType="touchUpInside" id="cgd-Zd-PVw"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -84,7 +84,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3OW-fF-nWm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Zks-uM-Mix" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2584" y="-707"/>
         </scene>

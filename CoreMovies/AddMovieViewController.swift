@@ -10,7 +10,8 @@ import CoreData
 
 class AddMovieViewController: UIViewController, UITextFieldDelegate
 {
-	var movies: [NSManagedObject] = []
+	var coreDataStack: CoreDataStack! = nil
+	var tableViewController: TableViewController!
 	@IBOutlet weak var textField: UITextField!
 	@IBOutlet weak var button: UIButton!
 	
@@ -45,17 +46,20 @@ class AddMovieViewController: UIViewController, UITextFieldDelegate
 	
 	func save(_ name: String)
 	{
-		let coreDataStack = CoreDataStack()
 		let movie = NSManagedObject(entity: coreDataStack.entity, insertInto: coreDataStack.context)
 		movie.setValue(name, forKeyPath: "name")
-		
+		tableViewController.movies.append(movie)
 		do
 		{
 			try coreDataStack.context.save()
-			movies.append(movie)
 		} catch
 		{
 			print("Save error: \(error)")
 		}
+	}
+
+	@IBAction func backToTableView(_ sender: UIButton)
+	{
+		dismiss(animated: true, completion: nil)
 	}
 }
