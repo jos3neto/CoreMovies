@@ -102,6 +102,7 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
 	
 	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
 	{
+		//movies = controller.fetchedObjects as! [NSManagedObject]
 		tableView.reloadData()
 		tableView.endUpdates()
 		//print("did change controller.fetchedObjects")
